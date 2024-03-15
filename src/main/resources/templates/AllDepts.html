@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos los departamentos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<table>
+    <tr>
+        <th>Numero</th>
+        <th>Nombre</th>
+        <th>Localidad</th>
+        <th>Fecha de creacion</th>
+        <th>Editar</th>
+        <th>Borrar</th>
+    </tr>
+    <tr th:each="dept : ${departamentos}">
+        <td th:text="${dept.numero}"></td>
+        <td>
+            <a th:href="@{/departamentos/detalle/__${dept.id}__?editable=false}" th:text="${dept.nombre}"></a>
+        </td>
+        <td th:text="${dept.localidad}"></td>
+        <td th:text="${dept.fechaCreacion}"></td>
+        <td class="botones editar"><a th:href="@{/departamentos/detalle/__${dept.id}__?editable=true}">&#128398;</a></td>
+        <td class="botones borrar">
+            <div th:onclick="borrarDepartamento([[${dept.id}]],[[${dept.nombre}]])">
+                &#128503;
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+<script th:src="@{/js/main.js}"></script>
+</html>

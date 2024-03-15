@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Departamento</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<form th:action="@{/departamentos/actualizar/__${departamento.id}__}" method="post" th:object="${departamento}">
+    <table>
+        <tr>
+            <th >Número</th>
+            <td>
+                <input th:field="*{numero}" th:if="${editable}">
+                <input th:field="*{numero}" th:unless="${editable}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>
+                <input th:field="*{nombre}" th:if="${editable}">
+                <input th:field="*{nombre}" th:unless="${editable}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>Localidad</th>
+            <td>
+                <input th:field="*{localidad}" th:if="${editable}">
+                <input th:field="*{localidad}" th:unless="${editable}" disabled>
+            </td>
+        </tr>
+        <tr>
+            <th>Fecha de Creación</th>
+            <td>
+                <input th:field="*{fechaCreacion}" th:if="${editable}">
+                <input th:field="*{fechaCreacion}" th:unless="${editable}" disabled>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Guardar" th:if="${editable}"/>
+    <input type="submit" value="No editable" th:unless="${editable}" disabled/>
+</form>
+</body>
+<script>
+    if([[${correcto}]]){
+        alert("Departamento [[${departamento.nombre}]] actualizado con exito.");
+    }
+</script>
+</html>

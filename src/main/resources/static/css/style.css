@@ -1,0 +1,18 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+.botones {
+    text-align: center;
+}
+td a, .botones div {
+    text-decoration: underline;
+    color: black;
+}
+td a:hover, .botones div:hover {
+    text-decoration: underline;
+    color: blue;
+    font-weight: bolder;
+    cursor: pointer;
+}
