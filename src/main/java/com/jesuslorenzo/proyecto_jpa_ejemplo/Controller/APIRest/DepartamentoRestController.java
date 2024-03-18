@@ -3,7 +3,6 @@ package com.jesuslorenzo.proyecto_jpa_ejemplo.Controller.APIRest;
 import com.jesuslorenzo.proyecto_jpa_ejemplo.Model.Entities.Departamento;
 import com.jesuslorenzo.proyecto_jpa_ejemplo.Repository.DepartamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 @RestController
 @Controller
 @CrossOrigin("*")
-@RequestMapping("departamento")
+@RequestMapping("RestApi/departamentos")
 public class DepartamentoRestController {
     @Autowired
     DepartamentoRepository departamentoRepository;
@@ -39,11 +38,11 @@ public class DepartamentoRestController {
         return departamentoRepository.findByNombre(nombre);
     }
 
-    @PostMapping("insercion-datos-departamento/{numero}/nombre/{nombre}/localidad/{localidad}/fecha-Creacion/{fechaCreacion}")
-    public void insercionDatos(@PathVariable long numero,
-                               @PathVariable String nombre,
-                               @PathVariable String localidad,
-                               @PathVariable LocalDate fechaCreacion) {
+    @PostMapping("insercion-datos-departamento/")
+    public void insercionDatos(@RequestParam long numero,
+                               @RequestParam(required = false) String nombre,
+                               @RequestParam(required = false) String localidad,
+                               @RequestParam(required = false) LocalDate fechaCreacion) {
         Departamento dept = new Departamento();
         dept.setNumero(numero);
         dept.setNombre(nombre);
@@ -52,13 +51,13 @@ public class DepartamentoRestController {
         departamentoRepository.save(dept);
     }
 
-    @Modifying
     @PutMapping("actualizar-por-id/{id}/localidad/{localidad}")
     public void actualizarDepartamento(@PathVariable long id, @PathVariable String localidad){
         Optional<Departamento> dept = departamentoRepository.findById(id);
-        if(dept.isPresent())
+        if(dept.isPresent()) {
             dept.get().setLocalidad(localidad);
-        departamentoRepository.save(dept.get());
+            departamentoRepository.save(dept.get());
+        }
     }
 
     @DeleteMapping("borrar-por-id/{id}")

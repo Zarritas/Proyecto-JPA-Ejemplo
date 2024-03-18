@@ -9,28 +9,29 @@
 <form th:action="@{/departamentos/actualizar/__${departamento.id}__}" method="post" th:object="${departamento}">
     <table>
         <tr>
-            <th >Número</th>
+            <th><label th:for="numero" th:text="#{numero}" /></th>
+
             <td>
                 <input th:field="*{numero}" th:if="${editable}">
                 <input th:field="*{numero}" th:unless="${editable}" disabled>
             </td>
         </tr>
         <tr>
-            <th>Nombre</th>
+            <th><label th:for="nombre" th:text="#{nombre}" /></th>
             <td>
                 <input th:field="*{nombre}" th:if="${editable}">
                 <input th:field="*{nombre}" th:unless="${editable}" disabled>
             </td>
         </tr>
         <tr>
-            <th>Localidad</th>
+            <th><label th:for="localidad" th:text="#{localidad}" /></th>
             <td>
                 <input th:field="*{localidad}" th:if="${editable}">
                 <input th:field="*{localidad}" th:unless="${editable}" disabled>
             </td>
         </tr>
         <tr>
-            <th>Fecha de Creación</th>
+            <th><label th:for="fechaCreacion" th:text="#{fechaCreacion}" /></th>
             <td>
                 <input th:field="*{fechaCreacion}" th:if="${editable}">
                 <input th:field="*{fechaCreacion}" th:unless="${editable}" disabled>
@@ -38,8 +39,8 @@
         </tr>
     </table>
     <input type="submit" value="Guardar" th:if="${editable}"/>
-    <input type="submit" value="No editable" th:unless="${editable}" disabled/>
 </form>
+<button onclick="window.location.href='/departamentos/listado-departamentos'">Volver a la lista</button>
 </body>
 <script>
     if([[${correcto}]]){

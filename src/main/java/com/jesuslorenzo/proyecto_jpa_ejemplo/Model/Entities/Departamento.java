@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class Departamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "id_dept")
     Long id;
 
