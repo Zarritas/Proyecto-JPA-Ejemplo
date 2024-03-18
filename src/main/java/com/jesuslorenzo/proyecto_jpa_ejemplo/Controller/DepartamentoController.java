@@ -30,17 +30,21 @@ public class DepartamentoController {
     }
     @GetMapping("detalle/{id}")
     public ModelAndView detalleDepartamento(@PathVariable Long id,
-                                            Model modelo,
-                                            @RequestParam boolean editable,
+                                            @RequestParam(required = false) boolean editable,
                                             @RequestParam(required = false) boolean correcto){
-        if(correcto){
-            modelo.addAttribute("correcto",correcto);
-        }
         ModelAndView modelAndView = new ModelAndView("OneDept");
         Optional<Departamento> departamento = departamentoRepository.findById(id);
-        modelAndView.addObject("editable",editable);
+
+        if(correcto){
+            modelAndView.addObject("correcto",correcto);
+        }
+        if (editable) {
+            modelAndView.addObject("editable",editable);
+        }
+
         if (departamento.isPresent())
             modelAndView.addObject("departamento",departamento.get());
+
         return modelAndView;
     }
     @GetMapping("borrar/{id}")
@@ -62,6 +66,6 @@ public class DepartamentoController {
             dept.get().setFechaCreacion(fechaCreacion);
             departamentoRepository.save(dept.get());
         }
-        return "redirect:/departamentos/detalle/"+id+"?editable=false&correcto=true";
+        return "redirect:/departamentos/detalle/"+id+"?correcto=true";
     }
 }

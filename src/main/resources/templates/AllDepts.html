@@ -18,7 +18,7 @@
     <tr th:each="dept : ${departamentos}">
         <td th:text="${dept.numero}"></td>
         <td>
-            <a th:href="@{/departamentos/detalle/__${dept.id}__?editable=false}" th:text="${dept.nombre}"></a>
+            <a th:href="@{/departamentos/detalle/__${dept.id}__}" th:text="${dept.nombre}"></a>
         </td>
         <td th:text="${dept.localidad}"></td>
         <td th:text="${dept.fechaCreacion}"></td>
