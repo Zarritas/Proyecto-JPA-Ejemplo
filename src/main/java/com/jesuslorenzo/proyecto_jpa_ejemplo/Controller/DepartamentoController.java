@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,10 +18,11 @@ public class DepartamentoController {
     @Autowired
     DepartamentoRepository departamentoRepository;
     @GetMapping("listado-departamentos")
-    public ModelAndView listadoDepartamentos(){
+    public ModelAndView listadoDepartamentos(RedirectAttributes flashAttributes){
         ModelAndView modelAndView = new ModelAndView("AllDepts");
         List<Departamento> departamentos = departamentoRepository.findAll();
         modelAndView.addObject("departamentos",departamentos);
+        modelAndView.addObject("mensaje",flashAttributes.getFlashAttributes().get("mensaje"));
         return modelAndView;
     }
     @GetMapping("listado-departamentos-ajax")
@@ -52,7 +54,8 @@ public class DepartamentoController {
                                          @RequestParam String numero,
                                          @RequestParam String nombre,
                                          @RequestParam LocalDate fechaCreacion,
-                                         @RequestParam String localidad){
+                                         @RequestParam String localidad,
+                                         RedirectAttributes flashAttributes){
         Optional<Departamento> dept = departamentoRepository.findById(id);
         if(dept.isPresent()) {
             dept.get().setNumero(Long.valueOf(numero));
@@ -60,8 +63,9 @@ public class DepartamentoController {
             dept.get().setLocalidad(localidad);
             dept.get().setFechaCreacion(fechaCreacion);
             departamentoRepository.save(dept.get());
-            return "redirect:/departamentos/detalle/"+id+"?correcto=true";
+            flashAttributes.addFlashAttribute("mensaje", "Correcto");
+            return "redirect:/departamentos/listado-departamentos";
         }
-        return "redirect:/departamentos/detalle/"+id;
+        return "OneDept";
     }
 }

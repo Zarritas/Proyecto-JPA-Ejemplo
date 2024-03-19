@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Todos los departamentos</title>
@@ -8,12 +8,12 @@
 <body>
 <table>
     <tr>
-        <th>Numero</th>
-        <th>Nombre</th>
-        <th>Localidad</th>
-        <th>Fecha de creacion</th>
-        <th>Editar</th>
-        <th>Borrar</th>
+        <th th:text="#{numero}"></th>
+        <th th:text="#{nombre}"></th>
+        <th th:text="#{localidad}"></th>
+        <th th:text="#{fechaCreacion}"></th>
+        <th th:text="#{editar}"></th>
+        <th th:text="#{borrar}"></th>
     </tr>
     <tr th:each="dept : ${departamentos}">
         <td th:text="${dept.numero}"></td>
@@ -32,4 +32,5 @@
 </table>
 </body>
 <script th:src="@{/js/main.js}"></script>
+<script>alert("[[${mensaje}]]")</script>
 </html>
