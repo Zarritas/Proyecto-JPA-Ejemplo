@@ -4,3 +4,4 @@ function borrarDepartamento(id,nombre) {
         window.location.href = "borrar/"+id;
     }
 }
+[[${mensaje}]]!==null?alert("[[${mensaje}]]"):null
